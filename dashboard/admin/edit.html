@@ -9117,7 +9117,7 @@
     <div id="header" class="header navbar-default">
       <!-- begin navbar-header -->
       <div class="navbar-header">
-        <h3>ADVmarketrade</h3>      
+        <h3>Ultradeplus</h3>      
        
          <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
           <span class="icon-bar"></span>
@@ -9240,7 +9240,8 @@
                       <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu mb-2" style="padding: 10px; background: #000;color: #fff;" >
-                      <li><a href="list.html" style="text-decoration: none; color: #fff;">View Traders</a></li>
+                        <li><a href="list.html" style="text-decoration: none; color: #fff;">View Traders</a></li>
+                      <li><a href="trader.html" style="text-decoration: none; color: #fff;">Add Trader</a></li>
                       <li><a href="trades.html"  style="text-decoration: none; color: #fff;">All Trades</a></li>
                   </ul>
               </li>
@@ -9582,7 +9583,7 @@
 
       const response = await $.ajax({
         type: "GET",
-        url: ` https://ADVmarketrade-render.onrender.com/users/${userFromLS.email}`,
+        url: ` https://ultrade-render.onrender.com/users/${userFromLS.email}`,
         dataType: "json",
         timeout: 30000,
         success: async function (data) {
@@ -9618,7 +9619,7 @@
 
       const response = await $.ajax({
         type: "PUT",
-        url: ` https://ADVmarketrade-render.onrender.com/users/${currentUser._id}/profile/update`,
+        url: ` https://ultrade-render.onrender.com/users/${currentUser._id}/profile/update`,
         dataType: "json",
         data: { firstName, lastName, email },
         timeout: 30000,
@@ -9651,7 +9652,7 @@
 
       const response = await $.ajax({
         type: "PUT",
-        url: ` https://ADVmarketrade-render.onrender.com/users/${currentUser._id}/accounts/update`,
+        url: ` https://ultrade-render.onrender.com/users/${currentUser._id}/accounts/update`,
         dataType: "json",
         data: { 'values': JSON.stringify(cummulative) },
         timeout: 30000,
@@ -9705,7 +9706,7 @@
 
       const response = await $.ajax({
         type: "PUT",
-        url: `https://ADVmarketrade-render.onrender.com/auth/${currentUser._id}/reset-password`,
+        url: `https://ultrade-render.onrender.com/auth/${currentUser._id}/reset-password`,
         dataType: "json",
         data: { password },
         timeout: 30000,

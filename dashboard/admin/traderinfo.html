@@ -2,7 +2,7 @@
 <!-- saved from url=(0039)https://orbitaloptions.com/update-profile -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
-  <title>ADVmarketrade</title>
+  <title>Ultradeplus</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
   <meta content="" name="description">
   <meta content="" name="author"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -706,7 +706,7 @@
 <div id="header" class="header navbar-default">
     <!-- begin navbar-header -->
     <div class="navbar-header">
-      <h3>ADVmarketrade</h3>      
+      <h3>Ultradeplus</h3>      
        
         <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
@@ -1203,7 +1203,7 @@ $(document).ready(async function () {
 
   const response = await $.ajax({
     type: "GET",
-    url: `https://ADVmarketrade-render.onrender.com/auth/trader/fetch-trader/${parsedData}`,
+    url: `https://ultrade-render.onrender.com/auth/trader/fetch-trader/${parsedData}`,
     dataType: "json",
     timeout: 30000,
     success: async function (data) {
@@ -1261,7 +1261,7 @@ $('#photo').val(userInfo.photo);
 
   const response = await $.ajax({
     type: "PUT",
-    url: `https://ADVmarketrade-render.onrender.com/auth/trader/${currentUser._id}/profile/update`,
+    url: `https://ultrade-render.onrender.com/auth/trader/${currentUser._id}/profile/update`,
     dataType: "json",
     data: {
       name, id, drawdown, strategy, winrate, frequency, profit, signal,

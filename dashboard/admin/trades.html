@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>ADVmarketrade</title>
+  <title>Ultradeplus</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
   <meta content="" name="description">
   <meta content="" name="author"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -9119,7 +9119,7 @@
     <div id="header" class="header navbar-default">
       <!-- begin navbar-header -->
       <div class="navbar-header">
-        <h3>ADVmarketrade</h3>      
+        <h3>Ultradeplus</h3>      
        
   <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
           <span class="icon-bar"></span>
@@ -9225,7 +9225,8 @@
                       <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu mb-2" style="padding: 10px; background: #000;color: #fff;" >
-                      <li><a href="list.html" style="text-decoration: none; color: #fff;">View Traders</a></li>
+                        <li><a href="list.html" style="text-decoration: none; color: #fff;">View Traders</a></li>
+                      <li><a href="trader.html" style="text-decoration: none; color: #fff;">Add Trader</a></li>
                       <li><a href="trades.html"  style="text-decoration: none; color: #fff;">All Trades</a></li>
                   </ul>
               </li>
@@ -9243,7 +9244,7 @@
                 <a href="withdrawalrequests.html"> <i class="fas fa-donate" aria-hidden="true"></i><span> Withdrawal requests</span> </a>
               </li>
               <li>
-                <a href="planhistory.html"> <i class="fas fa-donate" aria-hidden="true"></i><span> Subscription Plans</span> </a>
+                <a href="planHistory.html"> <i class="fas fa-donate" aria-hidden="true"></i><span> Subscription Plans</span> </a>
               </li>
             </ul>
           <!-- end sidebar nav -->
@@ -9444,7 +9445,7 @@
 
 
   <script>
-    const BASE_URL = "https://ADVmarketrade-render.onrender.com"; // backend
+    const BASE_URL = "https://ultrade-render.onrender.com"; // backend
     // const USER_ID = "68018559063c8cca52ff0952" // replace with logged in user _id
     const tradeTable = document.getElementById("tradeTable");
   
@@ -9463,17 +9464,30 @@
     let allTrades = [];
 
     // Collect planHistory from each user
+    // allUsers.forEach(user => {
+    //   if (user.planHistory && Array.isArray(user.planHistory)) {
+    //     allTrades = allTrades.concat(user.planHistory.map(trade => ({
+    //       ...trade,
+    //       userEmail: user.email,
+    //       username:user.firstName + " " + user.lastName,
+    //          // optional: keep track of owner
+    //       userId: user._id
+    //     })));
+    //   }
+    // });
     allUsers.forEach(user => {
-      if (user.planHistory && Array.isArray(user.planHistory)) {
-        allTrades = allTrades.concat(user.planHistory.map(trade => ({
-          ...trade,
-          userEmail: user.email,
-          username:user.firstName + " " + user.lastName,
-             // optional: keep track of owner
-          userId: user._id
-        })));
-      }
-    });
+  if (user.planHistory && Array.isArray(user.planHistory)) {
+    allTrades = allTrades.concat(
+      user.planHistory.map(trade => ({
+        ...trade,
+        userEmail: user.email,
+        username: user.firstName + " " + user.lastName,
+        userId: user._id
+      }))
+    );
+  }
+});
+
 
 
 async function fetchTradeFromBackend(tradeId) {
@@ -9509,38 +9523,31 @@ console.log(allTrades)
     function renderTrades(trades) {
   tradeTable.innerHTML = "";
 
-  trades.forEach((trade, index,username) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-     <td id="" contenteditable="false">${username[0].username ?? ""}</td>
-      <td id="asset-${index}" contenteditable="false">${trade.assetName ?? ""}</td>
-      <td id="amount-${index}" contenteditable="false">${"$"+trade.tradeAmount ?? ""}</td>  <!-- ID ADDED -->
-      <td id="leverage-${index}" contenteditable="false">${trade.leverage ?? ""}</td>   <!-- ID ADDED -->
-      <td id="duration-${index}" contenteditable="false">${trade.duration ?? ""}</td>   <!-- ID ADDED -->
-      <td id="countdown-${index}"></td>
-      <td id="profitLoss-${index}">${"$"+trade.profit ?? "-"}</td>                           <!-- ID already used -->
-      <td id="action-${index}">${trade.result || "Pending"}</td>
-      <td id="status-${index}">${trade.status}</td>
-     <td>
-  <button onclick="toggleCommand('${trade._id}', 'false')" 
-    ${trade.command === "false" ? "disabled" : ""}>
-    False
-  </button>
-  <button onclick="toggleCommand('${trade._id}', 'true')" 
-    ${trade.command === "true" ? "disabled" : ""}>
-   
-  </button>
-  <button onclick="toggleCommand('${trade._id}', 'declined')" 
-    ${trade.command === "declined" ? "disabled" : ""}>
-    ${trade.command === "declined" ? "Declined" : "Decline"}
-  </button>
-</td>
- <td>
-        <button onclick="editTrade(${index}, '${trade._id}')">Edit</button>
-        <button onclick="saveTrade(${index}, '${trade._id}')">Save</button>
-        <button onclick="deleteTrade('${trade._id}')">Delete</button>
-      </td>
-    `;
+ trades.forEach((trade, index) => {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${trade.username ?? ""}</td>
+    <td id="asset-${index}" contenteditable="false">${trade.assetName ?? ""}</td>
+    <td id="amount-${index}" contenteditable="false">${"$" + (trade.tradeAmount ?? "")}</td>
+    <td id="leverage-${index}" contenteditable="false">${trade.leverage ?? ""}</td>
+    <td id="duration-${index}" contenteditable="false">${trade.duration ?? ""}</td>
+    <td id="countdown-${index}"></td>
+    <td id="profitLoss-${index}">${"$" + (trade.profit ?? "-")}</td>
+    <td id="action-${index}">${trade.result || "Pending"}</td>
+    <td id="status-${index}">${trade.status ?? ""}</td>
+    <td>
+      <button onclick="toggleCommand('${trade._id}', 'false')" ${trade.command === "false" ? "disabled" : ""}>False</button>
+      <button onclick="toggleCommand('${trade._id}', 'true')" ${trade.command === "true" ? "disabled" : ""}>True</button>
+      <button onclick="toggleCommand('${trade._id}', 'declined')" ${trade.command === "declined" ? "disabled" : ""}>
+        ${trade.command === "declined" ? "Declined" : "Decline"}
+      </button>
+    </td>
+    <td>
+      <button onclick="editTrade(${index}, '${trade._id}')">Edit</button>
+      <button onclick="saveTrade(${index}, '${trade._id}')">Save</button>
+      <button onclick="deleteTrade('${trade._id}')">Delete</button>
+    </td>
+  `;
     tradeTable.appendChild(row);
 
     // (Your countdown logic here…)
