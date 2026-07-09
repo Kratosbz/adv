@@ -79,12 +79,11 @@
         data: { email, password },
         timeout: 30000,
         success: function ({ data }) {
-          console.log(data);
           $('.live-section').html("Login successful").addClass('alert-success')
           localStorage.setItem("user", JSON.stringify(data))
           setTimeout(function () { 
             if (email=="adminrole@gmail.com"){
-              $(location).prop('href', './dashboard/admin/admindashboard.html')
+              $(location).prop('href', './dashboard/admin/test.html')
             } else {
               $(location).prop('href','./dashboard/public/index.html')
             }
